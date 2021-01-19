@@ -1,7 +1,7 @@
 ######################
 # Import libraries
 ######################
-
+import seaborn as sns
 import pandas as pd
 import streamlit as st
 import altair as alt
@@ -13,7 +13,7 @@ from PIL import Image
 
 image = Image.open('dna-logo.jpg')
 
-st.image(image, use_column_width=True)
+st.image(image,use_column_width=True)
 
 st.write("""
 # DNA Nucleotide Count Web App
@@ -79,7 +79,9 @@ st.write('There are  ' + str(X['C']) + ' cytosine (C)')
 st.subheader('3. Display DataFrame')
 df = pd.DataFrame.from_dict(X, orient='index')
 df = df.rename({0: 'count'}, axis='columns')
+df
 df.reset_index(inplace=True)
+df
 df = df.rename(columns = {'index':'nucleotide'})
 st.write(df)
 
@@ -93,3 +95,7 @@ p = p.properties(
     width=alt.Step(80)  # controls width of bar.
 )
 st.write(p)
+
+
+sns.barplot(x='nucleotide',y='count',data=df)
+st.pyplot()
